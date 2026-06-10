@@ -1,0 +1,18 @@
+# Dependencies
+node_modules
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Dev folder (admin routes)
+/dev
+
+# Build output
+.svelte-kit
+build
+dist
+
+# Logs
+*.log

@@ -50,8 +50,13 @@ export async function verifyUser(username, password) {
 }
 
 export async function getUserById(id) {
-	const result = await db.select().from(users).where(eq(users.id, id));
-	return result[0] || null;
+	try {
+		const result = await db.select().from(users).where(eq(users.id, id));
+		return result[0] || null;
+	} catch (e) {
+		console.error('getUserById error:', e.message);
+		return null;
+	}
 }
 
 export async function updateUserProfile(id, data) {

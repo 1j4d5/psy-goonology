@@ -1,0 +1,69 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": ".*",
+			"continue": true,
+			"transforms": [
+				{
+					"type": "request.query",
+					"op": "delete",
+					"target": {
+						"key": "__pathname"
+					}
+				}
+			]
+		},
+		{
+			"src": "/_app/immutable/.+",
+			"headers": {
+				"cache-control": "public, immutable, max-age=31536000"
+			}
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "/_app/immutable/.+",
+			"status": 404,
+			"continue": false
+		},
+		{
+			"src": "^/?(?:/__data.json)?$",
+			"dest": "/"
+		},
+		{
+			"src": "^/account/manage/?(?:/__data.json)?$",
+			"dest": "/account/manage"
+		},
+		{
+			"src": "^/admin/login/?(?:/__data.json)?$",
+			"dest": "/admin/login"
+		},
+		{
+			"src": "^/a/rate/?(?:/__data.json)?$",
+			"dest": "/a/rate"
+		},
+		{
+			"src": "^/a/theories/?(?:/__data.json)?$",
+			"dest": "/a/theories"
+		},
+		{
+			"src": "^/dashboard/?(?:/__data.json)?$",
+			"dest": "/dashboard"
+		},
+		{
+			"src": "^/dev/admin/?(?:/__data.json)?$",
+			"dest": "/dev/admin"
+		},
+		{
+			"src": "^/login/?(?:/__data.json)?$",
+			"dest": "/login"
+		},
+		{
+			"src": "/.*",
+			"dest": "/![-]/catchall"
+		}
+	],
+	"overrides": {}
+}

@@ -1,0 +1,1 @@
+import{a as o,f as r}from"../chunks/YYKjhO-j.js";import{am as m,ab as p}from"../chunks/Cyb3hpsP.js";m();var s=r('<h1 class="svelte-1ei14pe">Theories</h1> <p>Theories page coming soon...</p>',1);function f(e){var a=s();p(2),o(e,a)}export{f as component};

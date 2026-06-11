@@ -1,0 +1,10 @@
+{
+	"runtime": "nodejs24.x",
+	"handler": "..\\..\\..\\..\\project\\new-projects\\goonology\\.svelte-kit\\vercel-tmp\\index.js",
+	"launcherType": "Nodejs",
+	"experimentalResponseStreaming": true,
+	"framework": {
+		"slug": "sveltekit",
+		"version": "2.64.0"
+	}
+}

@@ -6,116 +6,187 @@
 	<title>Dashboard - GOONOLOGY</title>
 </svelte:head>
 
-<main>
-	<div class="dashboard">
+<div class="dashboard">
+	<div class="header">
 		<h1>Dashboard</h1>
-
-		<div class="user-info">
-			<p>Welcome, <strong>{data.user.username}</strong></p>
-			<p class="role">Role: <span class="{data.user.role}">{data.user.role}</span></p>
-		</div>
-
-		<form method="POST" action="?/logout">
-			<button type="submit" class="logout">Logout</button>
-		</form>
-
-		<a href="/" class="back">← Back to Home</a>
+		<div class="glow"></div>
 	</div>
-</main>
+
+	<div class="user-card">
+		<div class="avatar">
+			{data.user.username.charAt(0).toUpperCase()}
+		</div>
+		<div class="user-details">
+			<h2>{data.user.username}</h2>
+			<span class="role-badge {data.user.role}">{data.user.role}</span>
+		</div>
+	</div>
+
+	<div class="stats">
+		<div class="stat-box">
+			<span class="stat-value">01</span>
+			<span class="stat-label">Status</span>
+		</div>
+		<div class="stat-box">
+			<span class="stat-value">{data.user.role === 'admin' ? '★' : '○'}</span>
+			<span class="stat-label">Access</span>
+		</div>
+	</div>
+
+	<div class="actions">
+		<form method="POST" action="/dashboard?/logout">
+			<button type="submit" class="btn-logout">
+				<span class="btn-text">Logout</span>
+				<span class="btn-glitch"></span>
+			</button>
+		</form>
+	</div>
+</div>
 
 <style>
-	main {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-		padding: 1rem;
+	.dashboard {
+		padding: 2rem;
+		max-width: 480px;
+		margin: 0 auto;
 	}
 
-	.dashboard {
-		background: #1a1a2e;
-		padding: 2.5rem;
-		border-radius: 8px;
-		border: 1px solid #333;
-		width: 100%;
-		max-width: 400px;
-		text-align: center;
+	.header {
+		position: relative;
+		margin-bottom: 2.5rem;
 	}
 
 	h1 {
-		color: #00ff88;
-		margin-bottom: 2rem;
-	}
-
-	.user-info {
-		background: #0a0a0a;
-		padding: 1.5rem;
-		border-radius: 4px;
-		margin-bottom: 2rem;
-	}
-
-	.user-info p {
-		margin-bottom: 0.5rem;
-		color: #aaa;
-	}
-
-	.user-info strong {
+		font-size: 2.5rem;
+		font-weight: 800;
 		color: #fff;
-		font-size: 1.2rem;
+		letter-spacing: 6px;
+		text-transform: uppercase;
+		position: relative;
+		z-index: 1;
 	}
 
-	.role {
-		font-size: 0.9rem;
+	.glow {
+		position: absolute;
+		bottom: -10px;
+		left: 0;
+		width: 120px;
+		height: 4px;
+		background: linear-gradient(90deg, #00ff88, transparent);
+		box-shadow: 0 0 20px #00ff88;
 	}
 
-	.role span {
+	.user-card {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+		padding: 1.5rem;
+		border-radius: 8px;
+		border: 1px solid #2a2a4a;
+		margin-bottom: 1.5rem;
+	}
+
+	.avatar {
+		width: 64px;
+		height: 64px;
+		background: linear-gradient(135deg, #00ff88, #00cc6a);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.75rem;
+		font-weight: 700;
+		color: #0a0a0a;
+		box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+	}
+
+	.user-details h2 {
+		color: #fff;
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.role-badge {
+		display: inline-block;
 		padding: 0.25rem 0.75rem;
-		border-radius: 4px;
-		font-weight: 600;
+		border-radius: 2px;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 2px;
 		text-transform: uppercase;
 	}
 
-	.role span.admin {
-		background: #ff6b6b;
-		color: #0a0a0a;
+	.role-badge.admin {
+		background: #ff3366;
+		color: #fff;
+		box-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
 	}
 
-	.role span.mod {
+	.role-badge.mod {
 		background: #ffd93d;
 		color: #0a0a0a;
+		box-shadow: 0 0 10px rgba(255, 217, 61, 0.5);
 	}
 
-	.role span.member {
-		background: #6bcb77;
+	.role-badge.member {
+		background: #00ff88;
 		color: #0a0a0a;
+		box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 	}
 
-	.logout {
-		padding: 0.75rem 2rem;
-		background: transparent;
-		border: 2px solid #ff6b6b;
+	.stats {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		margin-bottom: 2rem;
+	}
+
+	.stat-box {
+		background: #0a0a0f;
+		padding: 1.25rem;
 		border-radius: 4px;
-		color: #ff6b6b;
-		font-size: 1rem;
+		border: 1px solid #222;
+		text-align: center;
+	}
+
+	.stat-value {
+		display: block;
+		font-size: 1.75rem;
+		font-weight: 700;
+		color: #00ff88;
+		margin-bottom: 0.25rem;
+	}
+
+	.stat-label {
+		font-size: 0.7rem;
+		color: #666;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+	}
+
+	.actions {
+		display: flex;
+		justify-content: center;
+	}
+
+	.btn-logout {
+		position: relative;
+		padding: 1rem 2.5rem;
+		background: transparent;
+		border: 1px solid #ff3366;
+		color: #ff3366;
+		font-size: 0.9rem;
 		font-weight: 600;
+		letter-spacing: 3px;
+		text-transform: uppercase;
 		cursor: pointer;
+		overflow: hidden;
 		transition: all 0.3s ease;
 	}
 
-	.logout:hover {
-		background: #ff6b6b;
+	.btn-logout:hover {
+		background: #ff3366;
 		color: #0a0a0a;
-	}
-
-	.back {
-		display: block;
-		margin-top: 1.5rem;
-		color: #666;
-		text-decoration: none;
-	}
-
-	.back:hover {
-		color: #00ff88;
+		box-shadow: 0 0 30px rgba(255, 51, 102, 0.4);
 	}
 </style>

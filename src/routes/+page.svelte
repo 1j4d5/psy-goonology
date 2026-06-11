@@ -12,8 +12,12 @@
 		<p class="subtitle">by s2 (2010 batch)</p>
 
 		<div class="links">
-			<a href="/login" class="btn">Login</a>
-			<a href="/dashboard" class="btn">Dashboard</a>
+			{#if data.user}
+				<a href="/dashboard" class="btn">Dashboard</a>
+			{:else}
+				<a href="/login" class="btn">Login</a>
+				<a href="/dashboard" class="btn">Dashboard</a>
+			{/if}
 		</div>
 	</div>
 </main>

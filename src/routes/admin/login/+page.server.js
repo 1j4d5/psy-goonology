@@ -1,10 +1,12 @@
-import { verifyUser } from '$lib/server/auth.js';
 import { redirect, fail } from '@sveltejs/kit';
+import { verifyUser } from '$lib/server/auth.js';
 
-export const load = ({ locals }) => {
-	if (locals.user) {
-		throw redirect(303, '/dashboard');
+export const load = ({ locals, cookies }) => {
+	// If already logged in as admin, go to admin panel
+	if (locals.user?.role === 'admin') {
+		throw redirect(303, '/dev/admin');
 	}
+	return {};
 };
 
 export const actions = {
@@ -20,17 +22,22 @@ export const actions = {
 		const user = await verifyUser(username, password);
 
 		if (!user) {
-			return fail(401, { error: 'Invalid username or password' });
+			return fail(401, { error: 'Invalid credentials' });
 		}
 
+		if (user.role !== 'admin') {
+			return fail(403, { error: 'Admin access only' });
+		}
+
+		// Set session cookie
 		cookies.set('session', user.id.toString(), {
 			path: '/',
 			httpOnly: true,
-			sameSite: 'strict',
+			sameSite: 'lax',
 			secure: process.env.NODE_ENV === 'production',
 			maxAge: 60 * 60 * 24 * 7 // 7 days
 		});
 
-		throw redirect(303, '/dashboard');
+		throw redirect(303, '/dev/admin');
 	}
 };

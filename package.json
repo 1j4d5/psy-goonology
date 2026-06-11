@@ -17,6 +17,7 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.0",
     "drizzle-orm": "^0.45.2",

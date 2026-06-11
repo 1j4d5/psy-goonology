@@ -24,10 +24,11 @@ export async function createUser(username, password, role = 'member') {
 }
 
 export async function verifyUser(username, password) {
-	const result = await db.select().from(users).where(eq(users.username, username));
+	try {
+		const result = await db.select().from(users).where(eq(users.username, username));
 
-	if (result.length === 0) {
-		return null;
+		if (result.length === 0) {
+			return null;
 	}
 
 	const user = result[0];
@@ -47,6 +48,10 @@ export async function verifyUser(username, password) {
 		website: user.website,
 		location: user.location
 	};
+	} catch (e) {
+		console.error('verifyUser error:', e.message);
+		return null;
+	}
 }
 
 export async function getUserById(id) {

@@ -166,12 +166,22 @@ export async function getUserRatingForItem(itemId, userId) {
 
 // Settings
 export async function getSetting(key) {
-	const result = await db.select().from(settings).where(eq(settings.key, key));
-	return result[0]?.value || null;
+	try {
+		const result = await db.select().from(settings).where(eq(settings.key, key));
+		return result[0]?.value || null;
+	} catch (e) {
+		// Table might not exist yet
+		return null;
+	}
 }
 
 export async function setSetting(key, value) {
-	return await db.insert(settings).values({ key, value })
-		.onConflictDoUpdate({ target: settings.key, set: { value } })
-		.returning();
+	try {
+		return await db.insert(settings).values({ key, value })
+			.onConflictDoUpdate({ target: settings.key, set: { value } })
+			.returning();
+	} catch (e) {
+		// Table might not exist yet
+		return null;
+	}
 }

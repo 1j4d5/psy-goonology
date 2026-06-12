@@ -33,32 +33,52 @@
 			"dest": "/"
 		},
 		{
-			"src": "^/account/manage/?(?:/__data.json)?$",
-			"dest": "/account/manage"
+			"src": "^/admin/?(?:/__data.json)?$",
+			"dest": "/admin"
 		},
 		{
-			"src": "^/admin/login/?(?:/__data.json)?$",
-			"dest": "/admin/login"
+			"src": "^/api/categories/?(?:/__data.json)?$",
+			"dest": "/api/categories"
 		},
 		{
-			"src": "^/a/rate/?(?:/__data.json)?$",
-			"dest": "/a/rate"
+			"src": "^/api/categories/slug/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/api/categories/slug/[slug]"
 		},
 		{
-			"src": "^/a/theories/?(?:/__data.json)?$",
-			"dest": "/a/theories"
+			"src": "^/api/categories/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/api/categories/[id]"
 		},
 		{
-			"src": "^/dashboard/?(?:/__data.json)?$",
-			"dest": "/dashboard"
+			"src": "^/api/criteria/?(?:/__data.json)?$",
+			"dest": "/api/criteria"
 		},
 		{
-			"src": "^/dev/admin/?(?:/__data.json)?$",
-			"dest": "/dev/admin"
+			"src": "^/api/criteria/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/api/criteria/[id]"
 		},
 		{
-			"src": "^/login/?(?:/__data.json)?$",
-			"dest": "/login"
+			"src": "^/api/items/?(?:/__data.json)?$",
+			"dest": "/api/items"
+		},
+		{
+			"src": "^/api/items/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/api/items/[id]"
+		},
+		{
+			"src": "^/api/leaderboard/?(?:/__data.json)?$",
+			"dest": "/api/leaderboard"
+		},
+		{
+			"src": "^/api/ratings/?(?:/__data.json)?$",
+			"dest": "/api/ratings"
+		},
+		{
+			"src": "^/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/[categorySlug]"
+		},
+		{
+			"src": "^/([^/]+?)/([^/]+?)/?(?:/__data.json)?$",
+			"dest": "/[categorySlug]/[itemId]"
 		},
 		{
 			"src": "/.*",
